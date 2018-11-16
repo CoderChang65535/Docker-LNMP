@@ -15,7 +15,7 @@ services:
       - ./log/nginx/:/var/log/nginx/:rw,cached
     links:
       - php72:fpm72
-      - php56:fpm56
+#      - php56:fpm56
     environment:
       - TZ=Asia/Shanghai
     networks:
@@ -33,26 +33,26 @@ services:
       - ./log/php-fpm/:/var/log/php-fpm/:rw,cached
     links:
       - mysql:mysql
-      - redis:redis
+#      - redis:redis
     networks:
       docker_net:
         ipv4_address: ${PHP72_IP}
 
-  php56:
-    build: ./php/php56/
-    expose:
-      - "9000"
-    volumes:
-      - ${WORKSPACES}:/var/www/html/:rw,cached
-      - ./conf/php/php56.ini:/usr/local/etc/php/php.ini:ro,cached
-      - ./conf/php/php-fpm.d/www56.conf:/usr/local/etc/php-fpm.d/www.conf:rw,cached
-      - ./log/php-fpm/:/var/log/php-fpm/:rw,cached
-    links:
-      - mysql:mysql
-      - redis:redis
-    networks:
-      docker_net:
-        ipv4_address: ${PHP56_IP}
+#  php56:
+#    build: ./php/php56/
+#    expose:
+#      - "9000"
+#    volumes:
+#      - ${WORKSPACES}:/var/www/html/:rw,cached
+#      - ./conf/php/php56.ini:/usr/local/etc/php/php.ini:ro,cached
+#      - ./conf/php/php-fpm.d/www56.conf:/usr/local/etc/php-fpm.d/www.conf:rw,cached
+#      - ./log/php-fpm/:/var/log/php-fpm/:rw,cached
+#    links:
+#      - mysql:mysql
+#      - redis:redis
+#    networks:
+#      docker_net:
+#        ipv4_address: ${PHP56_IP}
 
   mysql:
     image: mysql:5.6
@@ -68,13 +68,13 @@ services:
       docker_net:
         ipv4_address: ${MYSQL_IP}
 
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
-    networks:
-      docker_net:
-        ipv4_address: ${REDIS_IP}
+#  redis:
+#    image: redis:latest
+#    ports:
+#      - "6379:6379"
+#    networks:
+#      docker_net:
+#        ipv4_address: ${REDIS_IP}
 
   portainer:
     image: portainer/portainer:latest
